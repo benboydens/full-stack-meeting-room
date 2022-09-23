@@ -1,10 +1,8 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
-import { MongoClient } from "mongodb";
+import { MongoClient } from "mongodb"
+import config from "../config/config"
 
 
-const url = `mongodb+srv://${process.env.db_username}:${process.env.db_password}@cluster0.ycyuerf.mongodb.net/?retryWrites=true&w=majority`;
-const client = new MongoClient(url);
+const client = new MongoClient(config.database.url);
 
 const Bookings = {
     all: () => {
@@ -33,4 +31,4 @@ const Rooms = {
     }
 }
 
-export { connect, Bookings, Rooms }
+export { Bookings, Rooms }
