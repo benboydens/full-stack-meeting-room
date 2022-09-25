@@ -2,19 +2,17 @@ import { MongoClient } from "mongodb"
 import fs from "fs"
 import config from "../config/config.js"
 
-
 const client = new MongoClient(config.database.url);
 
 try {
     // initialize dataset of bookings
-    const data = fs.readFileSync('../data/bookings.json', 'utf-8');
+    const booking_data = fs.readFileSync('../data/bookings.json', 'utf-8');
 
     // parsing to JSON object
-    const all_bookings = JSON.parse(data);
+    const all_bookings = JSON.parse(booking_data);    
 
     // getting collection bookings
-    const database = client.db("meeting-room");
-    const bookings = database.collection("bookings");
+    const bookings = client.db("meeting-room").collection("bookings");
 
     // this option prevents additional documents from being inserted if one fails
     const options = { ordered: true };
@@ -23,13 +21,13 @@ try {
 
 
     // initialize dataset of bookings
-    const data2 = fs.readFileSync('../data/rooms.json', 'utf-8');
+    const room_data = fs.readFileSync('../data/rooms.json', 'utf-8');
 
     // parsing to JSON object
-    const all_rooms = JSON.parse(data2);
+    const all_rooms = JSON.parse(room_data);
 
     // getting collection bookings
-    const rooms = database.collection("rooms");
+    const rooms = client.db("meeting-room").collection("rooms");
 
     // this option prevents additional documents from being inserted if one fails
     const result2 = await rooms.insertMany(all_rooms, options);
