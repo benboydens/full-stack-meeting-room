@@ -17,8 +17,9 @@ const RoomRoute = {
         }
 
         // TODO sanitize result
-        const result = Rooms.create(req.body.name, req.body.capacity)
-        res.json(result)
+        Rooms.create(req.body.name, req.body.capacity).then((result) => {
+            res.status(201).json(result)
+        })
     }
 }
 

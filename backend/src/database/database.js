@@ -9,8 +9,6 @@ const Room = mongoose.model('Room', room_schema);
 
 const Bookings = {
     all: () => {
-        // return all bookings
-        // TODO remove console.log
         return Booking.find({})
     },
     create: (room, booked_for, start_date, end_date) => {
@@ -26,8 +24,6 @@ const Bookings = {
 
 const Rooms = {
     all: () => {
-        // return all meeting rooms
-        // TODO remove console.log
         return Room.find({})
     },
     create: (name, capacity) => {

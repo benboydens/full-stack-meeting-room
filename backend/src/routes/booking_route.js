@@ -16,8 +16,9 @@ const BookingRoute = {
         }
 
         // TODO sanitize result
-        const result = Bookings.create(req.body.room_id, req.body.booked_for, req.body.start_date, req.body.end_date)
-        res.json(result)
+        Bookings.create(req.body.room_id, req.body.booked_for, req.body.start_date, req.body.end_date).then((result) => {
+            res.status(201).json(result)
+        })
     }
 }
 
