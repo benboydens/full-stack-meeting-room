@@ -12,18 +12,16 @@ const Bookings = {
         // return all bookings
         // TODO remove console.log
         Booking.find({}).then((res) => {
-            console.log(res);
+            console.log("Bookings: ", res);
             return res;
         });
     },
     create: (room, booked_for, start_date, end_date) => {
-        // TODO Add validation for input
-        // TODO replace test code here
         const booking = new Booking({
-            room_id: 2,
-            booked_for: "Ben",
-            start_date: Date.now(),
-            end_date: Date.now(),
+            room_id: room,
+            booked_for: booked_for,
+            start_date: start_date,
+            end_date: end_date,
         })
         booking.save().then(() => console.log('created booking'))
     }
@@ -34,16 +32,14 @@ const Rooms = {
         // return all meeting rooms
         // TODO remove console.log
         Room.find({}).then((res) => {
-            console.log(res)
+            console.log("Rooms: ", res)
             return res;
         })
     },
-    create: (name, cap) => {
-        // TODO Add validation for input
-        // TODO replace test code here
+    create: (name, capacity) => {
         const room = new Room({
-            name: "test",
-            capacity: 5
+            name: name,
+            capacity: capacity
         })
         room.save().then(() => console.log('created room'))
     }
