@@ -11,10 +11,7 @@ const Bookings = {
     all: () => {
         // return all bookings
         // TODO remove console.log
-        Booking.find({}).then((res) => {
-            console.log("Bookings: ", res);
-            return res;
-        });
+        return Booking.find({})
     },
     create: (room, booked_for, start_date, end_date) => {
         const booking = new Booking({
@@ -23,7 +20,7 @@ const Bookings = {
             start_date: start_date,
             end_date: end_date,
         })
-        booking.save().then(() => console.log('created booking'))
+        return booking.save()
     }
 }
 
@@ -31,17 +28,14 @@ const Rooms = {
     all: () => {
         // return all meeting rooms
         // TODO remove console.log
-        Room.find({}).then((res) => {
-            console.log("Rooms: ", res)
-            return res;
-        })
+        return Room.find({})
     },
     create: (name, capacity) => {
         const room = new Room({
             name: name,
             capacity: capacity
         })
-        room.save().then(() => console.log('created room'))
+        return room.save()
     }
 }
 
