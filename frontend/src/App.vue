@@ -1,24 +1,40 @@
 <template>
-  <v-app>
-    <v-app-bar app color="black" dark>
-      Meeting organizer
+  <v-app style="background: #f4faff">
+    <v-app-bar app color="primary" dark>
+      <h2>Meeting organizer</h2>
       <v-spacer></v-spacer>
     </v-app-bar>
 
     <v-main>
       <v-container>
-        <h1>Calendar</h1>
+        <v-sheet rounded="lg" class="pa-5">
+          <v-container>
+            <h1>Welcome</h1>
+            <v-btn @click="show = !show">Create</v-btn>
+            <CreateBooking v-if="show"></CreateBooking>
+          </v-container>
+        </v-sheet>
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import CreateBooking from "./components/CreateBooking.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: {
+    CreateBooking,
+  },
   data: () => ({
-    //
+    show: false,
   }),
 };
 </script>
+
+<style>
+.app {
+  background: "#f4faff";
+}
+</style>
