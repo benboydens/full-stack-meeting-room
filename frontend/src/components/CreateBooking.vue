@@ -1,6 +1,6 @@
 <template>
-  <v-stepper v-model="e6" flat class="my-5">
-    <v-stepper-header>
+  <v-stepper v-model="e6" class="my-5" outlined>
+    <!-- <v-stepper-header>
       <v-stepper-step :complete="e6 > 1" step="1" color="primary">
         Select a date
       </v-stepper-step>
@@ -14,17 +14,23 @@
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step step="4"> Overview </v-stepper-step>
-    </v-stepper-header>
+    </v-stepper-header> -->
 
     <v-stepper-items>
       <v-stepper-content step="1">
-        <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
-        <v-btn color="primary" @click="e6 = 2"> Continue </v-btn>
-        <v-btn text> Cancel </v-btn>
+        <h1>Select a day to hold the meeting</h1>
+        <v-card elevation="0">
+          <v-date-picker full-width v-model="date" class="my-3" />
+          <v-divider class="mx-3" />
+          <v-card-actions class="pa-5">
+            <v-btn color="primary" @click="e6 = 2"> Continue </v-btn>
+            <v-btn text> Cancel </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
+        <v-card outlined class="mb-12"></v-card>
         <v-btn color="primary" @click="e6 = 3"> Continue </v-btn>
         <v-btn text> Cancel </v-btn>
       </v-stepper-content>
@@ -49,6 +55,7 @@ export default {
   data: () => {
     return {
       e6: 1,
+      date: "2025-01-01",
     };
   },
 };
