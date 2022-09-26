@@ -111,12 +111,10 @@ export default {
       BookingsAPI.create_booking(new_booking).then((res) => {
         if (res.status === 201) {
           // clear form
-          this.email = undefined;
-          this.end_time = undefined;
-          this.start_time = undefined;
+          this.reset()
           
           // send action back to parent component
-          this.$emit("action", res);
+          this.$emit("action", res.data);
         }
       });
     },
@@ -133,6 +131,11 @@ export default {
           });
         }
       });
+    },
+    reset() {
+      this.email = undefined;
+      this.end_time = undefined;
+      this.start_time = undefined;
     },
     formatDate(d) {
       let dformat =

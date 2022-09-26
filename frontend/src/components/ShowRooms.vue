@@ -70,6 +70,9 @@ export default {
         this.selected = i;
       }
     },
+    reset() {
+      this.selected = undefined
+    },
     submitRoom() {
       this.$emit('action', this.rooms[this.selected])
     }
