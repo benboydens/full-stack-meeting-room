@@ -36,7 +36,7 @@
 
       <v-stepper-content step="3">
         <h1>Pick an available start and end time</h1>
-        <PickHour :room="room" @action="e6 = 4" @cancel="e6 = 1" ref="pickHour"/>
+        <PickHour :date="date"  :room="room" @action="e6 = 4" @cancel="e6 = 1" ref="pickHour"/>
       </v-stepper-content>
 
       <v-stepper-content step="4">
@@ -68,7 +68,7 @@ export default {
     setRoom(room) {
       this.room = room;
       this.e6 = 3
-      this.$refs.pickHour.get_bookings(room);
+      this.$refs.pickHour.getBookings(room);
     }
   }
 };

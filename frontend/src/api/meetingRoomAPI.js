@@ -15,6 +15,12 @@ const BookingsAPI = {
     resource: 'bookings',
     get_all() {
         return api.get(`/${this.resource}`)
+    },
+    find_by_room(room_id) {
+        return api.get(`/${this.resource}?room=${room_id}`)
+    },
+    create_booking(booking) {
+        return api.post(`/${this.resource}`, booking)
     }
 }
 

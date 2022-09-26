@@ -1,5 +1,10 @@
 <template>
   <div>
+    <v-text-field
+      v-model="email"
+      label="Email"
+      prepend-icon="mdi-email"
+    ></v-text-field>
     <v-dialog
       ref="start"
       v-model="start_modal"
@@ -67,42 +72,28 @@
     <v-sheet height="400" class="mb-5">
       <v-calendar
         ref="calendar"
-        v-model="value"
+        v-model="date"
         type="day"
         :events="events"
         event-overlap-mode="column"
       ></v-calendar>
     </v-sheet>
-    <v-divider class="mb-5"/>
-    <v-btn color="primary" @click="$emit('action')" > Continue </v-btn>
+    <v-divider class="mb-5" />
+    <v-btn color="primary" @click="createBooking"> Create Booking </v-btn>
     <v-btn text @click="$emit('cancel')"> Cancel </v-btn>
   </div>
 </template>
 
 <script>
+import { BookingsAPI } from "../api/meetingRoomAPI.js";
+
 export default {
   name: "PickHour",
-  props: ['room'],
+  props: ["room", "date"],
   data: () => {
     return {
-      value: "2025-01-01",
-      events: [
-        {
-          name: "Weekly Meeting",
-          start: "2025-01-01 5:00",
-          end: "2025-01-01 7:00",
-        },
-        {
-          name: `Thomas' Birthday`,
-          start: "2025-01-01 9:00",
-          end: "2025-01-01 10:00",
-        },
-        {
-          name: "Mash Potatoes",
-          start: "2025-01-01 12:30",
-          end: "2025-01-01 15:30",
-        },
-      ],
+      events: [],
+      email: undefined,
       start_time: null,
       end_time: null,
       start_modal: false,
@@ -110,10 +101,47 @@ export default {
     };
   },
   methods: {
-    get_bookings(room) {
-      console.log(room.name)
-    }
-  }
+    createBooking() {
+      const new_booking = {
+        room_id: this.room._id,
+        booked_for: this.email,
+        start_date: new Date(this.date + " " + this.start_time),
+        end_date: new Date(this.date + " " + this.end_time),
+      };
+      BookingsAPI.create_booking(new_booking).then((res) => {
+        if (res.status === 201) {
+          // clear form
+          this.email = undefined;
+          this.end_time = undefined;
+          this.start_time = undefined;
+          
+          // send action back to parent component
+          this.$emit("action", res);
+        }
+      });
+    },
+    getBookings(room) {
+      BookingsAPI.find_by_room(room._id).then((res) => {
+        if (res.status === 200) {
+          const bookings = res.data;
+          this.events = bookings.map((x) => {
+            return {
+              name: `Booked for ${x.booked_for}`,
+              start: this.formatDate(new Date(x.start_date)),
+              end: this.formatDate(new Date(x.end_date)),
+            };
+          });
+        }
+      });
+    },
+    formatDate(d) {
+      let dformat =
+        [d.getFullYear(), d.getMonth() + 1, d.getDate()].join("-") +
+        " " +
+        [d.getHours(), d.getMinutes()].join(":");
+      return dformat;
+    },
+  },
 };
 </script>
 
