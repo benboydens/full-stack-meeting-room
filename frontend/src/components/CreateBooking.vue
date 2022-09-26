@@ -31,12 +31,12 @@
 
       <v-stepper-content step="2">
         <h1>Pick a room to hold the meeting</h1>
-        <ShowRooms @action="e6 = 3" @cancel="e6 = 1" />
+        <ShowRooms @action="setRoom" @cancel="e6 = 1" />
       </v-stepper-content>
 
       <v-stepper-content step="3">
         <h1>Pick an available start and end time</h1>
-        <PickHour @action="e6 = 4" @cancel="e6 = 1"/>
+        <PickHour :room="room" @action="e6 = 4" @cancel="e6 = 1" ref="pickHour"/>
       </v-stepper-content>
 
       <v-stepper-content step="4">
@@ -61,8 +61,16 @@ export default {
     return {
       e6: 1,
       date: "2025-01-01",
+      room: undefined
     };
   },
+  methods: {
+    setRoom(room) {
+      this.room = room;
+      this.e6 = 3
+      this.$refs.pickHour.get_bookings(room);
+    }
+  }
 };
 </script>
 

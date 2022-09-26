@@ -30,30 +30,36 @@
     </v-simple-table>
     <v-divider />
     <v-card-actions class="pa-5">
-        <!-- TODO: pass selected room back to parent via emit -->
-      <v-btn color="primary" :disabled="selected === undefined" @click="$emit('action')"> Continue </v-btn>
+      <!-- TODO: pass selected room back to parent via emit -->
+      <v-btn
+        color="primary"
+        :disabled="selected === undefined"
+        @click="submitRoom"
+      >
+        Continue
+      </v-btn>
       <v-btn text @click="$emit('cancel')"> Cancel </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import { RoomsAPI } from "../api/meetingRoomAPI.js"
+
 export default {
+  name: "ShowRooms",
+  created() {
+    RoomsAPI.get_all().then((res) => {
+      if (res.status === 200) {
+        this.rooms = res.data
+      }
+    });
+  },
   data: () => {
     return {
       selected: undefined,
-      rooms: [
-        {
-          name: "Swag",
-          capacity: 10,
-        },
-        {
-          name: "Yolo",
-          capacity: 15,
-          selected: false,
-        },
-      ],
-    };
+      rooms: [],
+    }
   },
   methods: {
     bookRoom(i) {
@@ -64,6 +70,9 @@ export default {
         this.selected = i;
       }
     },
+    submitRoom() {
+      this.$emit('action', this.rooms[this.selected])
+    }
   },
 };
 </script>

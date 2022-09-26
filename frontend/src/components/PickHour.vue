@@ -82,6 +82,7 @@
 <script>
 export default {
   name: "PickHour",
+  props: ['room'],
   data: () => {
     return {
       value: "2025-01-01",
@@ -108,6 +109,11 @@ export default {
       end_modal: false,
     };
   },
+  methods: {
+    get_bookings(room) {
+      console.log(room.name)
+    }
+  }
 };
 </script>
 
