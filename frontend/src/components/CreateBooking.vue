@@ -35,9 +35,8 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
-        <v-btn color="primary" @click="e6 = 4"> Continue </v-btn>
-        <v-btn text @click="e6 = 1"> Cancel </v-btn>
+        <h1>Pick an available start and end time</h1>
+        <PickHour />
       </v-stepper-content>
 
       <v-stepper-content step="4">
@@ -51,10 +50,12 @@
 
 <script>
 import ShowRooms from "./ShowRooms.vue";
+import PickHour from "./PickHour.vue";
 
 export default {
   components: {
     ShowRooms,
+    PickHour
   },
   data: () => {
     return {
