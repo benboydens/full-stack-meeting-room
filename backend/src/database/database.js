@@ -11,6 +11,9 @@ const Bookings = {
     all: () => {
         return Booking.find({})
     },
+    find: (options) => {
+        return Booking.find(options)
+    },
     create: (room, booked_for, start_date, end_date) => {
         const booking = new Booking({
             room_id: room,

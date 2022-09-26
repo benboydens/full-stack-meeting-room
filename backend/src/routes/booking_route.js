@@ -3,11 +3,19 @@ import { validationResult } from "express-validator"
 
 const BookingRoute = {
     all: (req, res) => {
-        Bookings.all().then(
-            (result) => {
-                res.json(result)
-            }
-        )
+        if (req.query.room) {
+            Bookings.find({ room_id: req.query.room }).then(
+                (result) => {
+                    res.json(result)
+                }
+            )
+        } else {
+            Bookings.all().then(
+                (result) => {
+                    res.json(result)
+                }
+            )
+        }
     },
     post: (req, res) => {
         const errors = validationResult(req);
