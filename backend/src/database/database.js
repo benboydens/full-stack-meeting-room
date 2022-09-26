@@ -35,4 +35,8 @@ const Rooms = {
     }
 }
 
-export { Bookings, Rooms }
+const close_connection = async () => {
+    mongoose.disconnect()
+}
+
+export { Bookings, Rooms, close_connection }

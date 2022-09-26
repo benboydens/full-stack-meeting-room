@@ -1,41 +1,35 @@
-import { MongoClient } from "mongodb"
 import fs from "fs"
-import config from "../config/config.js"
-
-const client = new MongoClient(config.database.url);
+import { Bookings, Rooms, close_connection } from "./database.js"
 
 try {
-    // initialize dataset of bookings
-    const booking_data = fs.readFileSync('../data/bookings.json', 'utf-8');
-
-    // parsing to JSON object
-    const all_bookings = JSON.parse(booking_data);    
-
-    // getting collection bookings
-    const bookings = client.db("meeting-room").collection("bookings");
-
-    // this option prevents additional documents from being inserted if one fails
-    const options = { ordered: true };
-    const result = await bookings.insertMany(all_bookings, options);
-    console.log(`${result.insertedCount} bookings were inserted`);
-
 
     // initialize dataset of bookings
     const room_data = fs.readFileSync('../data/rooms.json', 'utf-8');
 
     // parsing to JSON object
     const all_rooms = JSON.parse(room_data);
+    let rooms = {}
+    for (const room of all_rooms) {
+        const result = await Rooms.create(room.name, room.capacity)
+        rooms[room.id] = result._id
+    }
+    
 
-    // getting collection bookings
-    const rooms = client.db("meeting-room").collection("rooms");
+    // initialize dataset of bookings
+    const booking_data = fs.readFileSync('../data/bookings.json', 'utf-8');
 
-    // this option prevents additional documents from being inserted if one fails
-    const result2 = await rooms.insertMany(all_rooms, options);
-    console.log(`${result2.insertedCount} rooms were inserted`);
+    // parsing to JSON object
+    const bookings_json = JSON.parse(booking_data);    
+
+    for (const booking of bookings_json) {
+        await Bookings.create(rooms[booking.room_id], booking.booked_for, booking.start_date, booking.end_date)
+    }
+
+    console.log("Successfully populated database.")
 
 } catch (exception) {
     throw exception;
 } finally {
-    await client.close();
+    await close_connection();
 }
 
