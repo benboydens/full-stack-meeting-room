@@ -21,6 +21,7 @@ const Bookings = {
             start_date: start_date,
             end_date: end_date,
         })
+        // TODO lower capacity when creating bookings
         return booking.save()
     }
 }

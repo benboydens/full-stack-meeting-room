@@ -10,7 +10,6 @@
         <v-sheet rounded="lg" class="pa-5">
           <v-container>
             <h1>Welcome</h1>
-            <v-btn @click="show = !show">Create</v-btn>
             <CreateBooking></CreateBooking>
           </v-container>
         </v-sheet>
@@ -26,10 +25,7 @@ export default {
   name: "App",
   components: {
     CreateBooking,
-  },
-  data: () => ({
-    show: false,
-  }),
+  }
 };
 </script>
 
