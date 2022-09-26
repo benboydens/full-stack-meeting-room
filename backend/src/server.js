@@ -1,10 +1,13 @@
 import express from 'express'
+import cors from 'cors'
 import BookingRoute from './routes/booking_route.js'
 import RoomRoute from './routes/room_route.js'
 import { body } from 'express-validator'
 
 const app = express();
 const port = 3000;
+
+app.use(cors())
 
 // configure app to use JSON
 app.use(express.json());
