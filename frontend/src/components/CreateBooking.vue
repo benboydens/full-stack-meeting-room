@@ -30,9 +30,8 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-card outlined class="mb-12"></v-card>
-        <v-btn color="primary" @click="e6 = 3"> Continue </v-btn>
-        <v-btn text> Cancel </v-btn>
+        <h1>Pick a room to hold the meeting</h1>
+        <ShowRooms @action="e6 = 3" @cancel="e6 = 1" />
       </v-stepper-content>
 
       <v-stepper-content step="3">
@@ -51,7 +50,12 @@
 </template>
 
 <script>
+import ShowRooms from "./ShowRooms.vue";
+
 export default {
+  components: {
+    ShowRooms,
+  },
   data: () => {
     return {
       e6: 1,
