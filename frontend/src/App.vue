@@ -11,7 +11,7 @@
           <v-container>
             <h1>Welcome</h1>
             <v-btn @click="show = !show">Create</v-btn>
-            <CreateBooking v-if="show"></CreateBooking>
+            <CreateBooking></CreateBooking>
           </v-container>
         </v-sheet>
       </v-container>

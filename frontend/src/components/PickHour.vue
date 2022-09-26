@@ -74,8 +74,8 @@
       ></v-calendar>
     </v-sheet>
     <v-divider class="mb-5"/>
-    <v-btn color="primary"> Continue </v-btn>
-    <v-btn text> Cancel </v-btn>
+    <v-btn color="primary" @click="$emit('action')" > Continue </v-btn>
+    <v-btn text @click="$emit('cancel')"> Cancel </v-btn>
   </div>
 </template>
 

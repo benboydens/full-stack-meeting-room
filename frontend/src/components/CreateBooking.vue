@@ -36,7 +36,7 @@
 
       <v-stepper-content step="3">
         <h1>Pick an available start and end time</h1>
-        <PickHour />
+        <PickHour @action="e6 = 4" @cancel="e6 = 1"/>
       </v-stepper-content>
 
       <v-stepper-content step="4">
